@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="131.0" prefWidth="308.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.UserEditController">
+      <TextField fx:id="name" layoutX="57.0" layoutY="19.0" prefHeight="30.0" prefWidth="234.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </TextField>
+      <Button layoutX="26.0" layoutY="66.0" mnemonicParsing="false" onAction="#handleNewUser" prefHeight="39.0" prefWidth="124.0" text="Создать">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+      <Label layoutX="20.0" layoutY="19.0" prefHeight="30.0" prefWidth="37.0" text="Имя" textAlignment="CENTER">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Button layoutX="158.0" layoutY="66.0" mnemonicParsing="false" onAction="#handleCancel" prefHeight="39.0" prefWidth="124.0" text="Отмена">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+</AnchorPane>
