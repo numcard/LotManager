@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="165.0"
+            prefWidth="307.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="app.controller.CategoryEditController">
+    <Label layoutY="14.0" prefHeight="39.0" prefWidth="84.0" text="     Название" textAlignment="CENTER">
+        <font>
+            <Font size="14.0"/>
+        </font>
+    </Label>
+    <TextField fx:id="name" layoutX="92.0" layoutY="19.0" prefHeight="30.0" prefWidth="199.0">
+        <font>
+            <Font size="14.0"/>
+        </font>
+    </TextField>
+    <Button layoutX="26.0" layoutY="106.0" mnemonicParsing="false" onAction="#handleNewCategory" prefHeight="39.0"
+            prefWidth="124.0" text="Добавить">
+        <font>
+            <Font size="14.0"/>
+        </font>
+    </Button>
+    <Button layoutX="158.0" layoutY="106.0" mnemonicParsing="false" onAction="#handleCancel" prefHeight="39.0"
+            prefWidth="124.0" text="Отмена">
+        <font>
+            <Font size="14.0"/>
+        </font>
+    </Button>
+    <TextField fx:id="meshokID" layoutX="92.0" layoutY="59.0" prefHeight="30.0" prefWidth="199.0">
+        <font>
+          <Font size="14.0"/>
+        </font>
+    </TextField>
+    <Label layoutY="54.0" prefHeight="39.0" prefWidth="84.0" text="    Мешок ID" textAlignment="CENTER">
+        <font>
+          <Font size="14.0"/>
+        </font>
+    </Label>
+</AnchorPane>

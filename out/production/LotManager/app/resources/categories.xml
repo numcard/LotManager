@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<categories>
+    <category>
+        <meshokCategory>14816</meshokCategory>
+        <name>Значки-&gt;Города</name>
+    </category>
+    <category>
+        <meshokCategory>2657</meshokCategory>
+        <name>Значки-&gt;Геральдика</name>
+    </category>
+    <category>
+        <meshokCategory>2661</meshokCategory>
+        <name>Значки-&gt;Космос</name>
+    </category>
+    <category>
+        <meshokCategory>2664</meshokCategory>
+        <name>Значки-&gt;Спорт</name>
+    </category>
+    <category>
+        <meshokCategory>2663</meshokCategory>
+        <name>Значки-&gt;Техника</name>
+    </category>
+    <category>
+        <meshokCategory>2662</meshokCategory>
+        <name>Значки-&gt;Другое</name>
+    </category>
+    <category>
+        <meshokCategory>2665</meshokCategory>
+        <name>Значки-&gt;Персоналии</name>
+    </category>
+    <category>
+        <meshokCategory>141</meshokCategory>
+        <name>Другое-Разное</name>
+    </category>
+</categories>
