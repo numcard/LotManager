@@ -8,34 +8,35 @@ import javafx.collections.ObservableList;
  */
 public class App
 {
-    private static App instance;
-    private final ObservableList<Lot> lots = FXCollections.observableArrayList();       // Текущие лоты
+	private static App instance;
+	private final ObservableList<Lot> lots = FXCollections.observableArrayList();   // Текущие лоты
 
-    public final static String APP_NAME = "Менеджер лотов";
-    public final static String APP_NAME_LOTS = "Лоты - ";
-    public final static String ICON_PATH = "src/app/resources/newspaper.png";
+	public final static String APP_NAME = "Менеджер лотов";
+	public final static String APP_NAME_LOTS = "Лоты - ";
+	public final static String ICON_PATH = "src/app/resources/newspaper.png";
 
-    private App()
-    {}
+	private App()
+	{}
 
-    public static App getInstance()
-    {
-        if(instance == null)
-            instance = new App();
-        return instance;
-    }
-    
-    public ObservableList<Lot> getLots()
-    {
-        return lots;
-    }
-    public void setLots(ObservableList<Lot> setLots)
-    {
-        clearLots();
-        lots.addAll(setLots);
-    }
-    public void clearLots()
-    {
-        lots.clear();
-    }
+	public static App getInstance()
+	{
+		if(instance == null) instance = new App();
+		return instance;
+	}
+
+	public ObservableList<Lot> getLots()
+	{
+		return lots;
+	}
+
+	public void setLots(ObservableList<Lot> setLots)
+	{
+		clearLots();
+		lots.addAll(setLots);
+	}
+
+	public void clearLots()
+	{
+		lots.clear();
+	}
 }

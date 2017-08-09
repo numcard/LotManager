@@ -31,12 +31,12 @@
     </Button>
     <TextField fx:id="meshokID" layoutX="92.0" layoutY="59.0" prefHeight="30.0" prefWidth="199.0">
         <font>
-          <Font size="14.0"/>
+            <Font size="14.0"/>
         </font>
     </TextField>
     <Label layoutY="54.0" prefHeight="39.0" prefWidth="84.0" text="    Мешок ID" textAlignment="CENTER">
         <font>
-          <Font size="14.0"/>
+            <Font size="14.0"/>
         </font>
     </Label>
 </AnchorPane>

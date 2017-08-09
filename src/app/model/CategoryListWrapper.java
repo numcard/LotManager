@@ -7,16 +7,16 @@ import java.util.List;
 @XmlRootElement(name = "categories")
 public class CategoryListWrapper
 {
-    private List<Category> categories;
+	private List<Category> categories;
 
-    @XmlElement(name = "category")
-    public List<Category> getCategories()
-    {
-        return categories;
-    }
+	@XmlElement(name = "category")
+	public List<Category> getCategories()
+	{
+		return categories;
+	}
 
-    public void setCategories(List<Category> categories)
-    {
-        this.categories = categories;
-    }
+	public void setCategories(List<Category> categories)
+	{
+		this.categories = categories;
+	}
 }

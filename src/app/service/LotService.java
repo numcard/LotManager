@@ -12,77 +12,74 @@ import java.io.FileNotFoundException;
 
 public class LotService
 {
-    private static LotService instance;
-    private final PreferenceService preferenceService = PreferenceService.getInstance();
-    private LotService()
-    {}
+	private static LotService instance;
+	private final PreferenceService preferenceService = PreferenceService.getInstance();
 
-    public static LotService getInstance()
-    {
-        if(instance == null)
-            instance = new LotService();
-        return instance;
-    }
+	private LotService()
+	{}
 
-    public ObservableList<Lot> loadLots(File file)
-    {
-        ObservableList<Lot> lots = FXCollections.observableArrayList();
-        try
-        {
-            if(!file.exists())
-                throw new FileNotFoundException(file.getAbsolutePath());
+	public static LotService getInstance()
+	{
+		if(instance == null) instance = new LotService();
+		return instance;
+	}
 
-            JAXBContext context = JAXBContext.newInstance(LotListWrapper.class);
-            Unmarshaller um = context.createUnmarshaller();
+	public ObservableList<Lot> loadLots(File file)
+	{
+		ObservableList<Lot> lots = FXCollections.observableArrayList();
+		try
+		{
+			if(!file.exists()) throw new FileNotFoundException(file.getAbsolutePath());
 
-            // Чтение XML из файла и демаршализация.
-            LotListWrapper wrapper = (LotListWrapper) um.unmarshal(file);
+			JAXBContext context = JAXBContext.newInstance(LotListWrapper.class);
+			Unmarshaller um = context.createUnmarshaller();
 
-            lots.clear();
-            if(wrapper.getLots() != null)
-                lots.addAll(wrapper.getLots());
+			// Чтение XML из файла и демаршализация.
+			LotListWrapper wrapper = (LotListWrapper) um.unmarshal(file);
 
-            // Сохраняем путь к файлу в реестре.
-            preferenceService.setLotFilePath(file);
-        }
-        catch(FileNotFoundException e)
-        {
-            AppException.Throw(e, "Файл не найден: " + file.getAbsolutePath());
-        }
-        catch(JAXBException e)
-        {
-            AppException.Throw(e);
-        }
-        return lots;
-    }
+			lots.clear();
+			if(wrapper.getLots() != null) lots.addAll(wrapper.getLots());
 
-    public void saveLots(File file, ObservableList<Lot> saveLots)
-    {
-        try
-        {
-            if(!file.exists())
-                throw new FileNotFoundException(file.getAbsolutePath());
-            JAXBContext context = JAXBContext.newInstance(LotListWrapper.class);
-            Marshaller m = context.createMarshaller();
-            m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+			// Сохраняем путь к файлу в реестре.
+			preferenceService.setLotFilePath(file);
+		}
+		catch(FileNotFoundException e)
+		{
+			AppException.Throw(e, "Файл не найден: " + file.getAbsolutePath());
+		}
+		catch(JAXBException e)
+		{
+			AppException.Throw(e);
+		}
+		return lots;
+	}
 
-            // Обёртываем наши данные об адресатах.
-            LotListWrapper wrapper = new LotListWrapper();
-            wrapper.setLots(saveLots);
+	public void saveLots(File file, ObservableList<Lot> saveLots)
+	{
+		try
+		{
+			if(!file.exists()) throw new FileNotFoundException(file.getAbsolutePath());
+			JAXBContext context = JAXBContext.newInstance(LotListWrapper.class);
+			Marshaller m = context.createMarshaller();
+			m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 
-            // Маршаллируем и сохраняем XML в файл.
-            m.marshal(wrapper, file);
+			// Обёртываем наши данные об адресатах.
+			LotListWrapper wrapper = new LotListWrapper();
+			wrapper.setLots(saveLots);
 
-            // Сохраняем путь к файлу в реестре.
-            preferenceService.setLotFilePath(file);
-        }
-        catch(FileNotFoundException e)
-        {
-            AppException.Throw(e, "Файл не найден: " + file.getAbsolutePath());
-        }
-        catch(JAXBException e)
-        {
-            AppException.Throw(e);
-        }
-    }
+			// Маршаллируем и сохраняем XML в файл.
+			m.marshal(wrapper, file);
+
+			// Сохраняем путь к файлу в реестре.
+			preferenceService.setLotFilePath(file);
+		}
+		catch(FileNotFoundException e)
+		{
+			AppException.Throw(e, "Файл не найден: " + file.getAbsolutePath());
+		}
+		catch(JAXBException e)
+		{
+			AppException.Throw(e);
+		}
+	}
 }

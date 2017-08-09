@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--suppress ALL -->
 <categories>
     <category>
         <meshokCategory>14816</meshokCategory>
@@ -31,5 +32,13 @@
     <category>
         <meshokCategory>141</meshokCategory>
         <name>Другое-Разное</name>
+    </category>
+    <category>
+        <meshokCategory>2659</meshokCategory>
+        <name>Культура и искусство</name>
+    </category>
+    <category>
+        <meshokCategory>14345</meshokCategory>
+        <name>Значки-&gt;Авиация</name>
     </category>
 </categories>

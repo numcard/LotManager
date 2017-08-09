@@ -7,16 +7,16 @@ import java.util.List;
 @XmlRootElement(name = "lots")
 public class LotListWrapper
 {
-    private List<Lot> lots;
+	private List<Lot> lots;
 
-    @XmlElement(name = "lot")
-    public List<Lot> getLots()
-    {
-        return lots;
-    }
+	@XmlElement(name = "lot")
+	public List<Lot> getLots()
+	{
+		return lots;
+	}
 
-    public void setLots(List<Lot> lots)
-    {
-        this.lots = lots;
-    }
+	public void setLots(List<Lot> lots)
+	{
+		this.lots = lots;
+	}
 }
