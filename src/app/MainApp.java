@@ -22,246 +22,248 @@ import java.io.IOException;
 
 public class MainApp extends Application
 {
-    private Stage primaryStage;
-    private BorderPane rootLayout;
-    private RootLayoutController controller;
-    private final PreferenceService preferenceServes = PreferenceService.getInstance();
-    private final LotService lotService = LotService.getInstance();
-    private final CategoryService categoryService = CategoryService.getInstance();
-    private final App app = App.getInstance();
+	private Stage primaryStage;
+	private BorderPane rootLayout;
+	private RootLayoutController controller;
+	private final PreferenceService preferenceServes = PreferenceService.getInstance();
+	private final LotService lotService = LotService.getInstance();
+	private final CategoryService categoryService = CategoryService.getInstance();
+	private final App app = App.getInstance();
 
-    public Stage getPrimaryStage()
-    {
-        return primaryStage;
-    }
-    public RootLayoutController getRootController()
-    {
-        return controller;
-    }
+	public Stage getPrimaryStage()
+	{
+		return primaryStage;
+	}
 
-    // Точка входа
-    public static void main(String[] args)
-    {
-        launch(args);
-    }
+	public RootLayoutController getRootController()
+	{
+		return controller;
+	}
 
-    @Override
-    public void start(Stage primaryStage)
-    {
-        this.primaryStage = primaryStage;
-        this.primaryStage.setTitle(App.APP_NAME);
+	// Точка входа
+	public static void main(String[] args)
+	{
+		launch(args);
+	}
 
-        // Устанавливаем иконку приложения.
-        this.primaryStage.getIcons().add(new Image("file:" + App.ICON_PATH));
+	@Override
+	public void start(Stage primaryStage)
+	{
+		this.primaryStage = primaryStage;
+		this.primaryStage.setTitle(App.APP_NAME);
 
-        initRootLayout();
-        showLotOverview();
-    }
+		// Устанавливаем иконку приложения.
+		this.primaryStage.getIcons().add(new Image("file:" + App.ICON_PATH));
 
-    @Override
-    public void stop()
-    {
-        controller.handleSaveLots();
-    }
+		initRootLayout();
+		showLotOverview();
+	}
 
-    private void initRootLayout()
-    {
-        try
-        {
-            // Загружаем корневой макет из fxml файла.
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("view/RootLayout.fxml"));
-            rootLayout = loader.load();
+	@Override
+	public void stop()
+	{
+		controller.handleSaveLots();
+	}
 
-            // Отображаем сцену, содержащую корневой макет.
-            Scene scene = new Scene(rootLayout);
-            primaryStage.setScene(scene);
+	private void initRootLayout()
+	{
+		try
+		{
+			// Загружаем корневой макет из fxml файла.
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApp.class.getResource("view/RootLayout.fxml"));
+			rootLayout = loader.load();
 
-            // Даём контроллеру доступ к главному приложению.
-            RootLayoutController controller = loader.getController();
-            controller.setMainApp(this);
+			// Отображаем сцену, содержащую корневой макет.
+			Scene scene = new Scene(rootLayout);
+			primaryStage.setScene(scene);
 
-            this.controller = controller;
-            primaryStage.show();
+			// Даём контроллеру доступ к главному приложению.
+			RootLayoutController controller = loader.getController();
+			controller.setMainApp(this);
 
-            File lotFile = preferenceServes.getLotFile();   // Загрузка лотов в приложение
-            if(lotFile != null)
-            {
-                app.setLots(lotService.loadLots(lotFile));
-                primaryStage.setTitle(App.APP_NAME_LOTS + lotFile.getAbsolutePath());
-            }
-        }
-        catch(IOException e)
-        {
-            AppException.Throw(e);
-        }
-    }
+			this.controller = controller;
+			primaryStage.show();
 
-    private void showLotOverview()
-    {
-        try
-        {
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("view/LotOverview.fxml"));
-            AnchorPane lotOverviewPage = loader.load();
+			File lotFile = preferenceServes.getLotFile();   // Загрузка лотов в приложение
+			if(lotFile != null)
+			{
+				app.setLots(lotService.loadLots(lotFile));
+				primaryStage.setTitle(App.APP_NAME_LOTS + lotFile.getAbsolutePath());
+			}
+		}
+		catch(IOException e)
+		{
+			AppException.Throw(e);
+		}
+	}
 
-            rootLayout.setCenter(lotOverviewPage);
+	private void showLotOverview()
+	{
+		try
+		{
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApp.class.getResource("view/LotOverview.fxml"));
+			AnchorPane lotOverviewPage = loader.load();
 
-            LotOverviewController controller = loader.getController();
-            controller.setMainApp(this);
-        }
-        catch(IOException e)
-        {
-            AppException.Throw(e);
-        }
-    }
+			rootLayout.setCenter(lotOverviewPage);
 
-    public boolean showLotEditDialog(Lot lot)
-    {
-        try
-        {
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("view/LotEditDialog.fxml"));
-            AnchorPane lotEditDialogPage = loader.load();
+			LotOverviewController controller = loader.getController();
+			controller.setMainApp(this);
+		}
+		catch(IOException e)
+		{
+			AppException.Throw(e);
+		}
+	}
 
-            Stage dialogStage = new Stage();
-            dialogStage.setTitle("Редактирование лота");
-            dialogStage.initModality(Modality.WINDOW_MODAL);
-            dialogStage.initOwner(primaryStage);
-            Scene scene = new Scene(lotEditDialogPage);
-            dialogStage.setScene(scene);
+	public boolean showLotEditDialog(Lot lot)
+	{
+		try
+		{
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApp.class.getResource("view/LotEditDialog.fxml"));
+			AnchorPane lotEditDialogPage = loader.load();
 
-            LotEditController controller = loader.getController();
-            controller.setDialogStage(dialogStage);
-            controller.setLot(lot);
+			Stage dialogStage = new Stage();
+			dialogStage.setTitle("Редактирование лота");
+			dialogStage.initModality(Modality.WINDOW_MODAL);
+			dialogStage.initOwner(primaryStage);
+			Scene scene = new Scene(lotEditDialogPage);
+			dialogStage.setScene(scene);
 
-            dialogStage.showAndWait();
+			LotEditController controller = loader.getController();
+			controller.setDialogStage(dialogStage);
+			controller.setLot(lot);
 
-            return controller.isOkClicked();
-        }
-        catch(IOException e)
-        {
-            AppException.Throw(e);
-            return false;
-        }
-    }
+			dialogStage.showAndWait();
 
-    public void showAutoloadDialog()
-    {
-        try
-        {
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("view/LotAutoloadDialog.fxml"));
-            AnchorPane autoloadDialog = loader.load();
+			return controller.isOkClicked();
+		}
+		catch(IOException e)
+		{
+			AppException.Throw(e);
+			return false;
+		}
+	}
 
-            Stage dialogStage = new Stage();
-            dialogStage.setTitle("Автозагрузка лотов");
-            dialogStage.initModality(Modality.WINDOW_MODAL);
-            dialogStage.initOwner(primaryStage);
-            Scene scene = new Scene(autoloadDialog);
-            dialogStage.setScene(scene);
+	public void showAutoloadDialog()
+	{
+		try
+		{
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApp.class.getResource("view/LotAutoloadDialog.fxml"));
+			AnchorPane autoloadDialog = loader.load();
 
-            LotAutoloadController controller = loader.getController();
-            controller.setDialogStage(dialogStage);
+			Stage dialogStage = new Stage();
+			dialogStage.setTitle("Автозагрузка лотов");
+			dialogStage.initModality(Modality.WINDOW_MODAL);
+			dialogStage.initOwner(primaryStage);
+			Scene scene = new Scene(autoloadDialog);
+			dialogStage.setScene(scene);
 
-            dialogStage.showAndWait();
-        }
-        catch(IOException e)
-        {
-            AppException.Throw(e);
-        }
-    }
+			LotAutoloadController controller = loader.getController();
+			controller.setDialogStage(dialogStage);
 
-    public boolean showCategoryEditDialog(Category tempCategory)
-    {
-        try
-        {
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("view/CategoryEditDialog.fxml"));
-            AnchorPane autoloadDialog = loader.load();
+			dialogStage.showAndWait();
+		}
+		catch(IOException e)
+		{
+			AppException.Throw(e);
+		}
+	}
 
-            Stage dialogStage = new Stage();
-            dialogStage.setTitle("Добавление категории");
-            dialogStage.initModality(Modality.WINDOW_MODAL);
-            dialogStage.initOwner(primaryStage);
-            Scene scene = new Scene(autoloadDialog);
-            dialogStage.setScene(scene);
+	public boolean showCategoryEditDialog(Category tempCategory)
+	{
+		try
+		{
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApp.class.getResource("view/CategoryEditDialog.fxml"));
+			AnchorPane autoloadDialog = loader.load();
 
-            CategoryEditController controller = loader.getController();
-            controller.setDialogStage(dialogStage);
-            controller.setCategory(tempCategory);
+			Stage dialogStage = new Stage();
+			dialogStage.setTitle("Добавление категории");
+			dialogStage.initModality(Modality.WINDOW_MODAL);
+			dialogStage.initOwner(primaryStage);
+			Scene scene = new Scene(autoloadDialog);
+			dialogStage.setScene(scene);
 
-            dialogStage.showAndWait();
+			CategoryEditController controller = loader.getController();
+			controller.setDialogStage(dialogStage);
+			controller.setCategory(tempCategory);
 
-            return controller.isOkClicked();
-        }
-        catch(IOException e)
-        {
-            AppException.Throw(e);
-            return false;
-        }
-    }
+			dialogStage.showAndWait();
 
-    public void showDeleteCategoryDialog()
-    {
-        if(categoryService.getCategoryNames().size() < 1)
-        {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Ошибка");
-            alert.setHeaderText("Ошибка удаления категорий");
-            alert.setContentText("Категории не найдены!");
-            alert.showAndWait();
-        }
-        else
-        {
-            try
-            {
-                FXMLLoader loader = new FXMLLoader();
-                loader.setLocation(MainApp.class.getResource("view/CategoryDeleteDialog.fxml"));
-                AnchorPane autoloadDialog = loader.load();
+			return controller.isOkClicked();
+		}
+		catch(IOException e)
+		{
+			AppException.Throw(e);
+			return false;
+		}
+	}
 
-                Stage dialogStage = new Stage();
-                dialogStage.setTitle("Удаление категории");
-                dialogStage.initModality(Modality.WINDOW_MODAL);
-                dialogStage.initOwner(primaryStage);
-                Scene scene = new Scene(autoloadDialog);
-                dialogStage.setScene(scene);
+	public void showDeleteCategoryDialog()
+	{
+		if(categoryService.getCategoryNames().size() < 1)
+		{
+			Alert alert = new Alert(Alert.AlertType.ERROR);
+			alert.setTitle("Ошибка");
+			alert.setHeaderText("Ошибка удаления категорий");
+			alert.setContentText("Категории не найдены!");
+			alert.showAndWait();
+		}
+		else
+		{
+			try
+			{
+				FXMLLoader loader = new FXMLLoader();
+				loader.setLocation(MainApp.class.getResource("view/CategoryDeleteDialog.fxml"));
+				AnchorPane autoloadDialog = loader.load();
 
-                CategoryDeleteController controller = loader.getController();
-                controller.setDialogStage(dialogStage);
+				Stage dialogStage = new Stage();
+				dialogStage.setTitle("Удаление категории");
+				dialogStage.initModality(Modality.WINDOW_MODAL);
+				dialogStage.initOwner(primaryStage);
+				Scene scene = new Scene(autoloadDialog);
+				dialogStage.setScene(scene);
 
-                dialogStage.showAndWait();
-            }
-            catch(IOException e)
-            {
-                AppException.Throw(e);
-            }
-        }
-    }
+				CategoryDeleteController controller = loader.getController();
+				controller.setDialogStage(dialogStage);
 
-    public void showSellDialog()
-    {
-        try
-        {
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("view/SellDialog.fxml"));
-            AnchorPane loginDialog = loader.load();
+				dialogStage.showAndWait();
+			}
+			catch(IOException e)
+			{
+				AppException.Throw(e);
+			}
+		}
+	}
 
-            Stage dialogStage = new Stage();
-            dialogStage.setTitle("Выставление лотов");
-            dialogStage.initModality(Modality.WINDOW_MODAL);
-            dialogStage.initOwner(primaryStage);
-            Scene scene = new Scene(loginDialog);
-            dialogStage.setScene(scene);
+	public void showSellDialog()
+	{
+		try
+		{
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApp.class.getResource("view/SellDialog.fxml"));
+			AnchorPane loginDialog = loader.load();
 
-            SellDialogController controller = loader.getController();
-            controller.setMainApp(this);
+			Stage dialogStage = new Stage();
+			dialogStage.setTitle("Выставление лотов");
+			dialogStage.initModality(Modality.WINDOW_MODAL);
+			dialogStage.initOwner(primaryStage);
+			Scene scene = new Scene(loginDialog);
+			dialogStage.setScene(scene);
 
-            dialogStage.showAndWait();
+			SellDialogController controller = loader.getController();
+			controller.setMainApp(this);
 
-        } catch(IOException e)
-        {
-            AppException.Throw(e);
-        }
-    }
+			dialogStage.showAndWait();
+
+		}
+		catch(IOException e)
+		{
+			AppException.Throw(e);
+		}
+	}
 }
