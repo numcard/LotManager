@@ -1,5 +1,6 @@
 package app.controller;
 
+import app.AppException;
 import app.MainApp;
 import app.model.App;
 import app.model.Lot;
@@ -37,7 +38,7 @@ public class SellDialogController
 	private void handleSell()
 	{
 		okButton.setDisable(true);
-		// Отключаем логирования
+		// Отключаем логирования - зачем?
 		Logger logger = Logger.getLogger("");
 		logger.setLevel(Level.OFF);
 		// Подгружаем лоты
@@ -50,29 +51,39 @@ public class SellDialogController
 		FirefoxDriver driver = new FirefoxDriver();
 		// Авторизуемся
 		LoginPage loginPage = new LoginPage(driver);
-		boolean success = loginPage.login(username.getText(), password.getText());
+		loginPage.login(username.getText(), password.getText());
+		boolean success = loginPage.isSuccess();
+		// Авторизация успешная
 		if(success)
 		{
 			// Счетчик выставлений
 			int counter = lots.size();
-			for(Lot lot : lots)
+
+			try
 			{
-				System.out.println("Осталось " + counter + " лотов.");
-				// Выставляем на продажу
-				SellPage sellPage = new SellPage(driver);
-				lot.setMeshokLink(sellPage.sell(lot, pattern.getText()));
-				counter--;
-				try
+				for(Lot lot : lots)
 				{
-					Thread.sleep(1200);
-				}
-				catch(InterruptedException e)
-				{
-					e.printStackTrace();
+					System.out.println("Осталось " + counter + " лотов.");
+					// Выставляем на продажу
+					SellPage sellPage = new SellPage(driver);
+					lot.setMeshokLink(sellPage.sell(lot, pattern.getText()));
+					counter--;
+					Thread.sleep(1800);
 				}
 			}
+			catch(Exception e)
+			{
+				AppException.Throw(e);
+			}
 		}
+		else
+		{
+			System.out.println("Ошибка авторизации");
+		}
+
 		okButton.setDisable(false);
 		mainApp.getRootController().handleSaveLots();
+		System.out.println("try");
+		driver.quit();
 	}
 }

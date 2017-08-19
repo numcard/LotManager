@@ -9,27 +9,51 @@
         <name>Значки-&gt;Геральдика</name>
     </category>
     <category>
-        <meshokCategory>2661</meshokCategory>
-        <name>Значки-&gt;Космос</name>
+        <meshokCategory>2659</meshokCategory>
+        <name>Значки-&gt;Культура и искусство</name>
     </category>
     <category>
         <meshokCategory>2664</meshokCategory>
         <name>Значки-&gt;Спорт</name>
     </category>
     <category>
-        <meshokCategory>2663</meshokCategory>
-        <name>Значки-&gt;Техника</name>
-    </category>
-    <category>
-        <meshokCategory>2662</meshokCategory>
-        <name>Значки-&gt;Другое</name>
+        <meshokCategory>2661</meshokCategory>
+        <name>Значки-&gt;Космос</name>
     </category>
     <category>
         <meshokCategory>2665</meshokCategory>
         <name>Значки-&gt;Персоналии</name>
     </category>
     <category>
+        <meshokCategory>2663</meshokCategory>
+        <name>Значки-&gt;Техника</name>
+    </category>
+    <category>
+        <meshokCategory>14345</meshokCategory>
+        <name>Значки-&gt;Авиация</name>
+    </category>
+    <category>
+        <meshokCategory>14343</meshokCategory>
+        <name>Значки-&gt;Детские</name>
+    </category>
+    <category>
+        <meshokCategory>2656</meshokCategory>
+        <name>Значки-&gt;Отличие и почет</name>
+    </category>
+    <category>
+        <meshokCategory>2662</meshokCategory>
+        <name>Значки-&gt;Другое</name>
+    </category>
+    <category>
+        <meshokCategory>13627</meshokCategory>
+        <name>Таблички и вывески</name>
+    </category>
+    <category>
         <meshokCategory>141</meshokCategory>
         <name>Другое-Разное</name>
+    </category>
+    <category>
+        <meshokCategory>2653</meshokCategory>
+        <name>Воинские награды до 91</name>
     </category>
 </categories>

@@ -1,9 +1,10 @@
-package meshok;
+package meshok.test;
 
 import app.model.Lot;
 import meshok.page.LoginPage;
 import meshok.page.SellPage;
 import org.openqa.selenium.firefox.FirefoxDriver;
+
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -22,8 +23,9 @@ class MainApp
 
         FirefoxDriver driver = new FirefoxDriver();
         LoginPage loginPage = new LoginPage(driver);
-        boolean success = loginPage.login(username, password);
-        if(success)
+        loginPage.login(username, password);
+	    boolean success = loginPage.isSuccess();
+	    if(success)
         {
             SellPage sellPage = new SellPage(driver);
             lot.setMeshokLink(sellPage.sell(lot, pattern));

@@ -14,6 +14,7 @@ public class LoginPage
 	private final By passwordLocator = By.name("password");
 	private final By welcomeLocator = By.xpath("/html/body/ul/li[2]/a");
 	private final By formSubmitLocator = By.className("autoreg");
+	private boolean success; // Indicate the state of authorization
 
 	public LoginPage(WebDriver driver)
 	{
@@ -21,7 +22,7 @@ public class LoginPage
 		driver.get("https://meshok.net/");
 	}
 
-	public boolean login(String username, String password)
+	public void login(String username, String password)
 	{
 		try
 		{
@@ -35,12 +36,16 @@ public class LoginPage
 				assert driver != null;
 				return driver.findElement(welcomeLocator).getText().equals("Выйти");
 			});
+			success = true;
 		}
 		catch(Exception e)
 		{
-			System.out.println("Ошибка авторизации");
-			return false;
+			success = false;
 		}
-		return true;
+	}
+
+	public boolean isSuccess()
+	{
+		return success;
 	}
 }
